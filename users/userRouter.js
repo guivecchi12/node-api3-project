@@ -13,17 +13,23 @@ router.post('/', validateUser(), (req, res) => {
 });
 
 // NEEDS FIXING!
-router.post('/:id/posts', validatePost(), (req, res) => {
-  if(req.body){
-    const body = [...req.body]
-    users.insert([body])
+router.post('/:id/posts', validatePost(), validateUserId(), (req, res) => {
+
+  const body = {...req.user, ...req.body}
+  if(body){
+    users.insert(body)
       .then((users) => {
+        console.log("users: ", users)
         if(user){
           res.status(201).json(users)
         }
         else{
           res.status(400).json({message: "broke"})
         }
+      })
+      .catch((err) => {
+        console.log("error in insert post", err)
+        res.status(400).json({message: "shoot we broke"})
       })
   }
 });
