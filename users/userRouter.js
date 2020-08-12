@@ -1,5 +1,6 @@
 const express = require('express');
 const users = require("./userDb");
+const posts = require("../posts/postDb");
 const router = express.Router();
 
 
@@ -15,13 +16,12 @@ router.post('/', validateUser(), (req, res) => {
 // NEEDS FIXING!
 router.post('/:id/posts', validatePost(), validateUserId(), (req, res) => {
 
-  const body = {...req.user, ...req.body}
+  const body = req.body
   if(body){
-    users.insert(body)
-      .then((users) => {
-        console.log("users: ", users)
-        if(user){
-          res.status(201).json(users)
+    posts.insert(body)
+      .then((post) => {
+        if(post){
+          res.status(201).json(post)
         }
         else{
           res.status(400).json({message: "broke"})
