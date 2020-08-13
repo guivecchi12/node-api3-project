@@ -13,10 +13,9 @@ router.post('/', validateUser(), (req, res) => {
     .catch((err) => next(err))
 });
 
-// NEEDS FIXING!
 router.post('/:id/posts', validatePost(), validateUserId(), (req, res) => {
 
-  const body = req.body
+  const body = {user_id:req.params.id, text: req.body.text}
   if(body){
     posts.insert(body)
       .then((post) => {
