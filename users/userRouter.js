@@ -73,7 +73,6 @@ router.delete('/:id', validateUserId(), (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  console.log(req.body)
   users.update(req.params.id, {name: req.body.name})
     .then((user) => {
       if(user === 1){
