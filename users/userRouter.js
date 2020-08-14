@@ -73,7 +73,8 @@ router.delete('/:id', validateUserId(), (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  users.update(req.params.id, req.body)
+  console.log(req.body)
+  users.update(req.params.id, {name: req.body.name})
     .then((user) => {
       if(user === 1){
         res.status(200).json({message: "user changed"})
@@ -82,7 +83,7 @@ router.put('/:id', (req, res) => {
         res.status(400).json({message: "error while editing user"})
       }
     })
-    .catch((err) => next(err))
+    .catch((err)=>next(err))
 });
 
 //custom middleware
