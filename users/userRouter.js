@@ -35,7 +35,7 @@ router.post('/:id/posts', validatePost(), validateUserId(), (req, res) => {
 
 router.get('/', (req, res) => {
   users.get()
-    .then((users) => res.status(200).json(users))
+    .then((users) => res.status(200).json({message: `Welcom ${process.env.COHORT}`, users}))
     .catch((err) => {
       next(err)
     })
